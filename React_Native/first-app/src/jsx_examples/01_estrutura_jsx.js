@@ -11,11 +11,12 @@ export function EstruturaJSX() {
       <View>
         <>
           <text></text>
+          </>
           {/* exemplo selfclose*/}
-          <view/>
-        </>
+          </View>
+        
       </View>
-    </View>
+    
     //</>
   );
 }
