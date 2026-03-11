@@ -24,10 +24,12 @@ const hora = agora.getHours()
 
 saudacao.textContent = hora < 18 ? "Bem vindo, bom almoço" : "Bem vindo, boa janta"
 
-nomeCompleto.innerHTML ="<strong>Rafael</strong> Henrique de Carvalho Dutra"
+nomeCompleto.innerHTML ="<strong>Rafael</strong> Henrique de <em>Carvalho<em> Dutra"
 
 const foto = document.querySelector('#foto-destaque')
 const caminhoAtual = foto.getAttribute('src')
 
 foto.setAttribute('src','src/img/esgotado.jpg')
 foto.setAttribute('alt','prato esgotado!')
+
+imagem_card_um.src = esgotado.jpg
