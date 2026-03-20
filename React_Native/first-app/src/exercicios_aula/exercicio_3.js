@@ -1,13 +1,14 @@
 import { StyleSheet, Text, View } from "react-native";
 
-export default function ExercicioView02() {
+export default function ExercicioView03() {
     return <View style={styles.container}>
         
         
-            <View style={{ flexDirection: "row", gap: 8, height: 80, width:80 , justifyContent: "center", alignItems: "center" }}>
+            <View style={{ flexDirection: "row",  justifyContent:"space-between" , alignItems: "center" }}>
                 <View style={styles.redBox}><Text style={styles.textStyle}>vermelho</Text></View>
                 <View style={styles.greenBox}><Text style={styles.textStyle}>verde</Text>verde</View>
                 <View style={styles.blueBox}><Text style={styles.textStyle}>azul</Text></View>
+                
 
 
             </View>
@@ -17,9 +18,8 @@ export default function ExercicioView02() {
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: "center",
-        justifyContent: "center",
-        flex: 1,
+        justifyContent:"center",
+                flex: 1,
         gap: 18,
     },
     textStyle: {

@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 export default function ExercicioView01() {
     return <View style={styles.container}>
         
-        <View style={styles.exemplo}>
+        
             <View style={{ flexDirection: "column", gap: 8, height: 80, width:80 , justifyContent: "center", alignItems: "center" }}>
                 <View style={styles.redBox}><Text style={styles.textStyle}>vermelho</Text></View>
                 <View style={styles.greenBox}><Text style={styles.textStyle}>verde</Text>verde</View>
@@ -11,7 +11,7 @@ export default function ExercicioView01() {
 
 
             </View>
-        </View>
+        
     </View>
 }
 
