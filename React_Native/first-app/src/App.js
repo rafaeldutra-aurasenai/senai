@@ -8,12 +8,19 @@ import { StyleSheet, Text, View } from 'react-native';
 // import ExercicioView04 from './exercicios_aula/exercicio_4';
 // import ExercicioView05 from './exercicios_aula/exercicio_5';
 // import ExercicioView06 from './exercicios_aula/exercicio_6';
-import ExercicioView08 from './exercicios_aula/exercicio_8';
+// import ExercicioView08 from './exercicios_aula/exercicio_8';
+// import ExercicioView05 from './exercicios_aula/exercicio_5';
+// import ExercicioView04 from './exercicios_aula/exercicio_4';
+// import ExercicioView06 from './exercicios_aula/exercicio_6';
+// import ExercicioView20 from './exercicio_20_somativa';
+// import ExercicioView21 from './exercicio_21_somativa';
+// import ExercicioView20 from './exercicio_20_somativa';
+import ExercicioView21 from './exercicio_21_somativa';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <ExercicioView08/>
+      <ExercicioView21/>
       <StatusBar style="auto" />
     </View>
   );
