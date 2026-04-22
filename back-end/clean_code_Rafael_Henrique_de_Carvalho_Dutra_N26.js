@@ -1,144 +1,159 @@
+const validarExistencia = (resultado, res, tipo) => {
+    if (resultado.length === 0) {
+        res.status(404).json({
+            sucesso: false,
+            menssagem: '${tipo} não encontrado(a)'
+        })
+        return false
+    }
+    return true
+}
+
 //Exercício 1
 
-app.get('/pedidos', async (req, res) => {
-    try{
-        const pedidos = await queryAsync("SELECT * FROM pedido")
-    res.send({
-        sucesso:true,
-        dados: pedido,
-        total:noticia.length,
-    })
-}catch(erro){
-    res.status(500).json({sucesso: false, messagem:erro.message})
-}})
+app.get('/usuarios', async (req, res) => {
+    try {
+        const listaUsuarios = await queryAsync("SELECT * FROM usuarios")
+        res.send({
+            sucesso: true,
+            dados: listaUsuarios,
+            total: listaUsuarios.length,
+        })
+    } catch (erro) {
+        res.status(500).json({ sucesso: false, messagem: erro.message })
+    }
+})
 
-app.get('/pedidos/:id', async (req, res) => {
-    try{
-        const id= Number(req.params.id)
+app.get('/usuarios/:id', async (req, res) => {
+    try {
+        const { id } = req.params
 
-        if(!Number.isInteger(id)){
+        if (!Number.isInteger(id)) {
             return res.status(400).json({
                 sucesso: false,
-                mensagem:"id invalido"
+                mensagem: "id invalido"
             })
         }
 
-        const pedidos = await queryAsync("SELECT * FROM produto WHERE id = ?", [id])
+        const pedidos = await queryAsync("SELECT * FROM usuarios WHERE id = ?", [id])
 
-    if (pedidos.length == 0) {
-        return res.status(404).json({
-            sucesso:false,
-            mensagem:"pedido nao encontrado"
+        if (!validarExistencia(usuario, res, "usuarios")) {
+            return
+        }
+
+        res.json({
+            sucesso: true,
+            dados: usuario[0]
         })
-    } 
-    res.json({
-        sucesso:true,
-        dados:produto[0]
-    })
 
-    }catch(erro){
-        res.status(500).json({sucesso:false, mensagem:erro.message})
+    } catch (erro) {
+        res.status(500).json({ sucesso: false, mensagem: erro.message })
     }
-    
+
 })
 
 //Exercício 2
+const validarDados = ({ nome_cliente, valor_pedido }) => {
+    if (!nome_cliente || !valor_pedido) {
+        return "cliente e valor são obrigatorios"
+    }
+    if (typeof valor_pedido !== 'number' || valor_pedido <= 0) {
+        return "valor invalido"
+    }
+    return null
+}
 
 app.post('/pedidos', async (req, res) => {
-    try{
-    let { nome_cliente, valor_pedido } = req.body
+    try {
+        const erro = validarDados(req.body)
+        if (erro) {
+            return res.status(400).json({
+                sucesso: false,
+                mensagem: erro
+            })
 
-    if (!nome_cliente||
-        !valor_pedido
-    ) {
-        return res.send(400).json({
-            sucesso:false,
-            mensagem:'todos os compos são obrigatorios, preencha-os por favor'
+        }
+        const resultadoFinal = await queryAsync("INSERT INTO pedido SET ?", [req.body])
+
+
+        res.status(201).json({
+            sucesso: true,
+            mensagem: "pedido adicionado com sucesso"
         })
+    } catch (erro) {
+        res.status(500).json({
+            sucesso: false,
+            mensagem: "erro ao adicionar pedido"
+        })
+
     }
-     const novoPedido ={
-        nome_cliente: nome_cliente,
-        valor_pedido: Number(valor_pedido)
-     }
-
-    const resultadoFinal = await queryAsync("INSERT INTO pedido SET ?", [novoPedido])
-
-
-    res.status(201).json({
-        sucesso:true,
-        mensagem:"pedido adicionado com sucesso",
-        id: resultado.inserrId
-    })
-    }catch(erro){
-    res.status(500).json({
-        sucesso:false,
-        mensagem:erro.message
-    })
-
-}
 })
 
 //Exercício 3
 
 app.put('/salas/:id', async (req, res) => {
-    try{
-    const id = number(req.params.id)
-    if (!Number.isInteger(id)) {
-      return res.status(400).json({
-        sucesso: false,
-        mensagem: 'ID inválido'
-      })
+    try {
+        const { id } = req.params
+        const dados = req.body
+
+        const salas = await queryAsync("SELECT * FROM sala WHERE id = ?", [id])
+
+        if (validarExistencia(sala, res, "Sala")) {
+            return
+        }
+        if (Object.keys(dados).length === 0) {
+            return res.status(400).json({
+                sucesso: false,
+                mensagem: 'nenhum dado enviado'
+            })
+        }
+
+        await queryAsync("UPDATE sala SET ? WHERE id = ?", [dados, id])
+
+        res.status(200).json({
+            sucesso: true,
+            mensagem: 'sala atualizada com sucesso'
+        })
+
+    } catch (erro) {
+        res.status(500).json({
+            sucesso: false,
+            mensagem: "erro ao atualizar sala"
+        })
     }
+})
 
-    const salasEXistem = await queryAsync("SELECT * FROM sala WHERE id = ?", [id])
 
-    if (salasEXistem.length === 0) {
-        return res.status(404).json({
-            sucesso:false,
-            mensagem:"sala nao encontrada"})
+/// nao foi feito
 
-    }
-    const {horario_sala, data_sala, filme_sala}= req.body
-    const AtualizarEspacos={}
-    if(horario_sala)AtualizarEspacos.horario_sala = horario_sala.trim()
-    if(data_sala)AtualizarEspacos.data_sala = data_sala.trim()
-    if(filme_sala)AtualizarEspacos.filme_sala = filme_sala_sala.trim()
+app.delete('/salas/:id', async (req, res) => {
+    try {
 
-    if(Object.keys(atualizado).length===0){
-        return res.status(400).json({
-            sucesso:false,
-            mensagem:'não ha nada para atualizar'
+        const { id } = req.params
+
+        const salas = await queryAsync("SELECT * FROM sala WHERE id = ?", [id])
+
+        if (!validarExistencia(sala, res, "Sala")) {
+            return
+        }
+
+        if (Object.keys(salas).length === 0) {
+            return res.status(400).json({
+                sucesso: false,
+                mensagem: "nenhuma sala para apagar"
+            })
+        }
+        await queryAsync("DELETE FROM sala WHERE id = ?", [id])
+        res.status(200).json({
+            sucesso: true,
+            mensagem: "sala removida"
+        }
+        )
+    } catch (erro) {
+        res.status(500).json({
+            sucesso: false,
+            mensagem: "erro ao deletar a sala"
         })
     }
 
-    await queryAsync("UPDATE sala SET ? WHERE id = ?", [AtualizarEspacos, id])
-
-    res.send({
-        sucesso:true,
-        mensagem:'sala atualizada com sucesso'
-    })
-    
-}catch(erro){
-    res.status(500).json({
-        sucesso:false,
-        mensagem:erro.message
-    })
-}
-})
-        
-
-    /// nao foi feito
-
-app.delete('/salas/:id', async (req, res) => {
-    const id = req.params
-
-    const s = await queryAsync("SELECT * FROM sala WHERE id = ?", [id])
-
-    if (s.length === 0) {
-        return res.send("nao tem")
-    }
-
-    await queryAsync("DELETE FROM sala WHERE id = ?", [id])
-
-    res.send("apagou")
 })
