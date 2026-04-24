@@ -17,14 +17,17 @@ import { StyleSheet, Text, View } from 'react-native';
 // import ExercicioView20 from './exercicio_20_somativa';
 //import ExercicioView21 from './exercicio_21_somativa';
 
-import CardSaudacao from './props/exercicio_3';
-import CartaoUsuario from'./props/exercicio_2';
-import CardProduto from './props/exercicio_1';
-import PerfilAlunos from './props/exercicio_4';
+// import CardSaudacao from './props/exercicio_3';
+// import CartaoUsuario from'./props/exercicio_2';
+// import CardProduto from './props/exercicio_1';
+// import PerfilAlunos from './props/exercicio_4';
+//import ContadorExample from './hooks/useState_example';
+//import TelaLogin from './hooks/useRef_example';
+import TelaMoeda from './hooks/useEffect_example';
 
 export default function App(){
   return(
-    <View styles={styles.container}>
+    <View style={styles.container}>
 
       //exercicio 1
       {/* <CardProduto produto="damasco" preco={5.00}/>
@@ -40,9 +43,13 @@ export default function App(){
       <CardSaudacao nome="lidia"/>
        */}
 
-       <PerfilAlunos tudo="nome:carlos turma:DS-2025 matricula: 00123"/>
+       {/* <PerfilAlunos tudo="nome:carlos turma:DS-2025 matricula: 00123"/>
 
-    
+     */}
+
+     {/* <ContadorExample/> */}
+
+     <TelaMoeda/>
     </View>
     
   )
@@ -54,9 +61,7 @@ export default function App(){
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems:"center",
-    padding:18,
+    justifyContent: "center"
     
   },
-  
 });
