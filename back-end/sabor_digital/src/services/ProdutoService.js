@@ -101,30 +101,53 @@ class produtoService {
         }
 
         await produtoRepository.atualizarProdutoPorId(id, produtoAtualizado)
-        return{
-            sucesso:true,
-            mensagem:"produto atualizado com sucesso"
+        return {
+            sucesso: true,
+            mensagem: "produto atualizado com sucesso"
         }
     }
-    async deletarProduto(id){
-        if(!id || isNaN(id)){
-            throw{status:400,
-                mensagem:"id invalido"
+    async deletarProduto(id) {
+        if (!id || isNaN(id)) {
+            throw {
+                status: 400,
+                mensagem: "id invalido"
             }
         }
         const produto = await produtoRepository.buscarPorId(id)
-        if(!produto){
-            throw{
+        if (!produto) {
+            throw {
                 status: 404,
-                mensagem:"produto nao encontrado"
+                mensagem: "produto nao encontrado"
             }
         }
         await produtoRepository.deletarProdutoPorId(id)
-        return{
+        return {
             sucesso: true,
             mensagem: "produto apagado com sucesso"
         }
     }
+
+
+
+    async salvarImagem(file) {
+
+        const caminho = file.path;
+        const nome = file.filename;
+
+        await ProdutoRepository.salvarImagem(
+            nome,
+            caminho
+        );
+
+        return {
+            message: "Upload realizado",
+            arquivo: nome
+        };
+
+    }
+
+
+
 }
 
 module.exports = new produtoService()

@@ -11,3 +11,5 @@ router.get('/', (req, res) =>{
 
 })
 router.use('/produtos',produtoRoutes)
+
+module.exports = router
