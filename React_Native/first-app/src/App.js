@@ -1,31 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import FlatListExemplos from './flatlist/flatlist';
+import "react-native-gesture-handler";
 
-// import FormularioExemplo from './text_input/formulario'
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, View } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
 
+import DrawerNavigator from "./navigation/drawer_navigation";
 
-
-
-export default function App(){
-  return(
-    <View style={styles.container}>
-
-      <FlatListExemplos/>
-
-     
-    </View>
-    
-  )
+export default function App() {
+  return (
+    <NavigationContainer>
+      <View style={styles.container}>
+        <DrawerNavigator />
+      </View>
+    </NavigationContainer>
+  );
 }
-
-
-
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center"
-    
   },
 });
